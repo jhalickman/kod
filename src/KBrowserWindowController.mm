@@ -2,6 +2,7 @@
 #import "KAppDelegate.h"
 #import "KBrowser.h"
 #import "KTabContents.h"
+#import "NodeThread.h"
 #import <ChromiumTabs/common.h>
 
 @implementation KBrowserWindowController
@@ -92,5 +93,73 @@ willPositionSheet:(NSWindow *)sheet
     [self doesNotRecognizeSelector:selector];
 }
 
+
+#pragma mark -
+#pragma mark Callbacks
+
+// Note: this is called _before_ the view is on screen
+- (void)tabSelectedWithContents:(CTTabContents*)newContents
+             previousContents:(CTTabContents*)oldContents
+                      atIndex:(NSInteger)index
+                  userGesture:(bool)wasUserGesture {
+  [super tabSelectedWithContents:newContents
+                previousContents:oldContents
+                         atIndex:index
+                     userGesture:wasUserGesture];
+  [[NodeThread mainNodeThread] emit:@"tabSelected"];
+}
+
+
+- (void)tabClosingWithContents:(CTTabContents*)contents
+                       atIndex:(NSInteger)index {
+  [super tabClosingWithContents:contents atIndex:index];
+  [[NodeThread mainNodeThread] emit:@"tabClosed"];
+}
+
+
+- (void)tabInsertedWithContents:(CTTabContents*)tab
+                      atIndex:(NSInteger)index
+                 inForeground:(bool)foreground {
+  [super tabInsertedWithContents:tab
+                         atIndex:index
+                    inForeground:foreground];
+  NodeThread* node = [NodeThread mainNodeThread];
+  [node emit:@"tabCreated"];
+  [node invoke:@"readFile" args:[NSArray arrayWithObject:@"/etc/hosts"]
+      callback:^(NSError *err, id result){
+    NSLog(@"readFile callback invoked");
+    if (err) NSLog(@"readFile failed with error: %@", err);
+    else NSLog(@"readFile returned with result: %@", result);
+  }];
+}
+
+
+- (void)tabDetachedWithContents:(CTTabContents*)contents
+                        atIndex:(NSInteger)index {
+  [super tabDetachedWithContents:contents atIndex:index];
+  [[NodeThread mainNodeThread] emit:@"tabDetached"];
+}
+
+
+/*- (void)tabDetachedWithContents:(CTTabContents*)contents
+                        atIndex:(NSInteger)index {
+  [contents tabDidDetachFromBrowser:browser_ atIndex:index];
+}
+
+
+- (void)tabMovedWithContents:(CTTabContents*)contents
+                    fromIndex:(NSInteger)from
+                      toIndex:(NSInteger)to {
+  DLOG_TRACE();
+}
+- (void)tabChangedWithContents:(CTTabContents*)contents
+                       atIndex:(NSInteger)index
+                    changeType:(TabChangeType)change {
+  DLOG_TRACE();
+}
+- (void)tabMiniStateChangedWithContents:(CTTabContents*)contents
+                                atIndex:(NSInteger)index {
+  DLOG_TRACE();
+}*/
 
 @end

@@ -1,0 +1,3 @@
+[submodule "deps/json-framework"]
+	path = deps/json-framework
+	url = git://github.com/stig/json-framework

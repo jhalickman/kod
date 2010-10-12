@@ -10,7 +10,7 @@
 		3A9291181229B93C00DA7E43 /* Toolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A9291171229B93C00DA7E43 /* Toolbar.xib */; };
 		3A92911B1229B96A00DA7E43 /* KTabContents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A92911A1229B96A00DA7E43 /* KTabContents.mm */; };
 		3A92911E1229B9D500DA7E43 /* KToolbarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A92911D1229B9D500DA7E43 /* KToolbarController.mm */; };
-		3A9291C51229BF7500DA7E43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A928C16122714E800DA7E43 /* main.m */; };
+		3A9291C51229BF7500DA7E43 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A928C16122714E800DA7E43 /* main.mm */; };
 		3A9291C61229BFAD00DA7E43 /* KAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A928C15122714E800DA7E43 /* KAppDelegate.mm */; };
 		3A9291C71229BFB000DA7E43 /* KBrowser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A928C18122714E800DA7E43 /* KBrowser.mm */; };
 		3A9291DF1229BFCD00DA7E43 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A928C1B122714EE00DA7E43 /* MainMenu.xib */; };
@@ -19,6 +19,16 @@
 		3A9293CC1229ED4C00DA7E43 /* KDocumentController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A9293CB1229ED4C00DA7E43 /* KDocumentController.mm */; };
 		3A929886122AC38F00DA7E43 /* ChromiumTabs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9297E4122AB49D00DA7E43 /* ChromiumTabs.framework */; };
 		3A929887122AC39100DA7E43 /* ChromiumTabs.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9297E4122AB49D00DA7E43 /* ChromiumTabs.framework */; };
+		3AA84610126369BE006F5268 /* libnode.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA8460F126369BE006F5268 /* libnode.dylib */; };
+		3AA84714126388CC006F5268 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 3AA847111263888F006F5268 /* main.js */; };
+		3AA8471812638968006F5268 /* NodeThread.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8471712638968006F5268 /* NodeThread.mm */; };
+		3AA84D2E1264784F006F5268 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA84D251264784F006F5268 /* NSObject+SBJSON.m */; };
+		3AA84D2F1264784F006F5268 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA84D271264784F006F5268 /* NSString+SBJSON.m */; };
+		3AA84D301264784F006F5268 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA84D291264784F006F5268 /* SBJsonBase.m */; };
+		3AA84D311264784F006F5268 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA84D2B1264784F006F5268 /* SBJsonParser.m */; };
+		3AA84D321264784F006F5268 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA84D2D1264784F006F5268 /* SBJsonWriter.m */; };
+		3AA84D38126478ED006F5268 /* NSObject+v8.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA84D37126478ED006F5268 /* NSObject+v8.mm */; };
+		3AA84F3312649C19006F5268 /* NSData+node.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA84F3212649C19006F5268 /* NSData+node.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,12 +67,22 @@
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AA84715126388EA006F5268 /* Copy Javascript library */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = lib;
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			name = "Copy Javascript library";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3A928C14122714E800DA7E43 /* KAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAppDelegate.h; sourceTree = "<group>"; };
 		3A928C15122714E800DA7E43 /* KAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KAppDelegate.mm; sourceTree = "<group>"; };
-		3A928C16122714E800DA7E43 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3A928C16122714E800DA7E43 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		3A928C17122714E800DA7E43 /* KBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBrowser.h; sourceTree = "<group>"; };
 		3A928C18122714E800DA7E43 /* KBrowser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KBrowser.mm; sourceTree = "<group>"; };
 		3A928C1A122714EE00DA7E43 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = Info.plist; sourceTree = "<group>"; };
@@ -81,6 +101,25 @@
 		3A9293661229E49A00DA7E43 /* NSError+KAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+KAdditions.m"; sourceTree = "<group>"; };
 		3A9293CA1229ED4C00DA7E43 /* KDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDocumentController.h; sourceTree = "<group>"; };
 		3A9293CB1229ED4C00DA7E43 /* KDocumentController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KDocumentController.mm; sourceTree = "<group>"; };
+		3AA8460F126369BE006F5268 /* libnode.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.dylib; path = ../node/build/default/libnode.dylib; sourceTree = SOURCE_ROOT; };
+		3AA847111263888F006F5268 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		3AA8471612638968006F5268 /* NodeThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeThread.h; sourceTree = "<group>"; };
+		3AA8471712638968006F5268 /* NodeThread.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NodeThread.mm; sourceTree = "<group>"; };
+		3AA84D231264784F006F5268 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		3AA84D241264784F006F5268 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		3AA84D251264784F006F5268 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		3AA84D261264784F006F5268 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		3AA84D271264784F006F5268 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		3AA84D281264784F006F5268 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		3AA84D291264784F006F5268 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		3AA84D2A1264784F006F5268 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		3AA84D2B1264784F006F5268 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		3AA84D2C1264784F006F5268 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		3AA84D2D1264784F006F5268 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		3AA84D36126478ED006F5268 /* NSObject+v8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+v8.h"; sourceTree = "<group>"; };
+		3AA84D37126478ED006F5268 /* NSObject+v8.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+v8.mm"; sourceTree = "<group>"; };
+		3AA84D39126479BB006F5268 /* NS+node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS+node.h"; sourceTree = "<group>"; };
+		3AA84F3212649C19006F5268 /* NSData+node.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSData+node.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A929886122AC38F00DA7E43 /* ChromiumTabs.framework in Frameworks */,
+				3AA84610126369BE006F5268 /* libnode.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +150,10 @@
 			isa = PBXGroup;
 			children = (
 				3A92912B1229BB5100DA7E43 /* prefix.pch */,
-				3A928C16122714E800DA7E43 /* main.m */,
+				3A928C16122714E800DA7E43 /* main.mm */,
+				3AA847111263888F006F5268 /* main.js */,
+				3AA8471612638968006F5268 /* NodeThread.h */,
+				3AA8471712638968006F5268 /* NodeThread.mm */,
 				3A928C14122714E800DA7E43 /* KAppDelegate.h */,
 				3A928C15122714E800DA7E43 /* KAppDelegate.mm */,
 				3A9293CA1229ED4C00DA7E43 /* KDocumentController.h */,
@@ -125,6 +168,11 @@
 				3A92911D1229B9D500DA7E43 /* KToolbarController.mm */,
 				3A9293651229E49A00DA7E43 /* NSError+KAdditions.h */,
 				3A9293661229E49A00DA7E43 /* NSError+KAdditions.m */,
+				3AA84D39126479BB006F5268 /* NS+node.h */,
+				3AA84D36126478ED006F5268 /* NSObject+v8.h */,
+				3AA84D37126478ED006F5268 /* NSObject+v8.mm */,
+				3AA84F3212649C19006F5268 /* NSData+node.mm */,
+				3AA84D221264784F006F5268 /* json-framework */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -150,6 +198,7 @@
 		3A92914F1229BD5E00DA7E43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AA8460F126369BE006F5268 /* libnode.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -163,6 +212,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3AA84D221264784F006F5268 /* json-framework */ = {
+			isa = PBXGroup;
+			children = (
+				3AA84D231264784F006F5268 /* JSON.h */,
+				3AA84D241264784F006F5268 /* NSObject+SBJSON.h */,
+				3AA84D251264784F006F5268 /* NSObject+SBJSON.m */,
+				3AA84D261264784F006F5268 /* NSString+SBJSON.h */,
+				3AA84D271264784F006F5268 /* NSString+SBJSON.m */,
+				3AA84D281264784F006F5268 /* SBJsonBase.h */,
+				3AA84D291264784F006F5268 /* SBJsonBase.m */,
+				3AA84D2A1264784F006F5268 /* SBJsonParser.h */,
+				3AA84D2B1264784F006F5268 /* SBJsonParser.m */,
+				3AA84D2C1264784F006F5268 /* SBJsonWriter.h */,
+				3AA84D2D1264784F006F5268 /* SBJsonWriter.m */,
+			);
+			name = "json-framework";
+			path = "deps/json-framework/Classes";
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -174,6 +242,7 @@
 				3A928C1D1227151800DA7E43 /* Sources */,
 				3A928C1E1227151800DA7E43 /* Frameworks */,
 				3A9291381229BBB600DA7E43 /* Copy Frameworks */,
+				3AA84715126388EA006F5268 /* Copy Javascript library */,
 			);
 			buildRules = (
 			);
@@ -231,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA84714126388CC006F5268 /* main.js in Resources */,
 				3A9291DF1229BFCD00DA7E43 /* MainMenu.xib in Resources */,
 				3A9291181229B93C00DA7E43 /* Toolbar.xib in Resources */,
 			);
@@ -243,7 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A9291C51229BF7500DA7E43 /* main.m in Sources */,
+				3A9291C51229BF7500DA7E43 /* main.mm in Sources */,
 				3A9291C61229BFAD00DA7E43 /* KAppDelegate.mm in Sources */,
 				3A9291C71229BFB000DA7E43 /* KBrowser.mm in Sources */,
 				3A92911B1229B96A00DA7E43 /* KTabContents.mm in Sources */,
@@ -251,6 +321,14 @@
 				3A9292991229D31200DA7E43 /* KBrowserWindowController.mm in Sources */,
 				3A9293671229E49A00DA7E43 /* NSError+KAdditions.m in Sources */,
 				3A9293CC1229ED4C00DA7E43 /* KDocumentController.mm in Sources */,
+				3AA8471812638968006F5268 /* NodeThread.mm in Sources */,
+				3AA84D2E1264784F006F5268 /* NSObject+SBJSON.m in Sources */,
+				3AA84D2F1264784F006F5268 /* NSString+SBJSON.m in Sources */,
+				3AA84D301264784F006F5268 /* SBJsonBase.m in Sources */,
+				3AA84D311264784F006F5268 /* SBJsonParser.m in Sources */,
+				3AA84D321264784F006F5268 /* SBJsonWriter.m in Sources */,
+				3AA84D38126478ED006F5268 /* NSObject+v8.mm in Sources */,
+				3AA84F3312649C19006F5268 /* NSData+node.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,15 +373,28 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../chromium-tabs/build/Debug\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = src/prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "EV_MULTIPLICITY=0";
+				HEADER_SEARCH_PATHS = (
+					deps/node/deps/libeio,
+					deps/node/deps/libev,
+					deps/node/deps/v8/include,
+					deps/node/src,
+				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../node/build/default\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -331,13 +422,29 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../chromium-tabs/build/Debug\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = src/prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"EV_MULTIPLICITY=0",
+				);
+				HEADER_SEARCH_PATHS = (
+					deps/node/deps/libeio,
+					deps/node/deps/libev,
+					deps/node/deps/v8/include,
+					deps/node/src,
+				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../node/build/default\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",

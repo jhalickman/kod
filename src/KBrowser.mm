@@ -1,6 +1,7 @@
 #import "KBrowser.h"
 #import "KTabContents.h"
 #import "KBrowserWindowController.h"
+#import "NodeThread.h"
 #import <ChromiumTabs/common.h>
 
 @implementation KBrowser
@@ -54,5 +55,11 @@
     //case CTBrowserCommandAlwaysOnTop: break;
     case CTBrowserCommandNewTab:               [self addBlankTab]; break;
     case CTBrowserCommandCloseTab:             [self closeTab]; break;*/
+
+
+-(void)closeTabAtIndex:(int)index makeHistory:(BOOL)makeHistory {
+  [super closeTabAtIndex:index makeHistory:makeHistory];
+  [[NodeThread mainNodeThread] emit:@"tabClosed"];
+}
 
 @end
