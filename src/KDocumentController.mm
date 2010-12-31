@@ -6,6 +6,7 @@
 #import "KFileURLHandler.h"
 #import "KHTTPURLHandler.h"
 #import "KKodURLHandler.h"
+#import "KConnectionKitURLHandler.h"
 
 #import <objc/objc-runtime.h>
 
@@ -48,7 +49,10 @@
     [urlHandlers_ setObject:[KFileURLHandler handler] forKey:@"file"];
     [urlHandlers_ setObject:[KHTTPURLHandler handler] forKey:@"http"];
     [urlHandlers_ setObject:[KKodURLHandler handler] forKey:@"kod"];
-  }
+
+	[urlHandlers_ setObject:[KConnectionKitURLHandler handler] forKey:@"ftp"];
+	[urlHandlers_ setObject:[KConnectionKitURLHandler handler] forKey:@"sftp"];
+}
   return self;
 }
 

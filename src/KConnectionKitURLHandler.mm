@@ -52,6 +52,7 @@
 	NSLog(@"%@", error);	
 	NSString*path = [transfer localPath];
 	[super _readURL:[NSURL URLWithString:path] ofType:myType inTab:myTab successCallback:nil];
+	myTab.title = [NSString stringWithFormat:@"%@", [[transfer remotePath] lastPathComponent]];
 	[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
 	[[transfer connection] disconnect];
 	[myTab release];
@@ -134,52 +135,24 @@
 	[conn setDelegate:self];
 	[conn connect];
 	CKTransferRecord *record = [conn uploadFromData:data toFile:[absoluteURL path] checkRemoteExistence:YES delegate:self];
-	
-	
-	/*// this method should never be called unless canWriteURL: was called and
-  // returned YES
-  kassert([absoluteURL isFileURL]);
-  
-  // we use an absolute path
-  NSString *path = [absoluteURL path];
-  
-  // writer
-  void(^performWrite)(void) = ^{
-    NSAutoreleasePool *pool = [NSAutoreleasePool new];
-
-    // write data
-    NSDataWritingOptions writeOptions = 0;
-    if (kconf_bool(@"KFileURLHandler/write/atomic", NO))
-      writeOptions |= NSDataWritingAtomic;
-    NSError *error = nil;
-    if (![data writeToFile:path options:writeOptions error:&error]) {
-      if (callback)
-        callback(error, nil);
-      return;
-    }
-    
-    // write xattrs
-    [self _writeXAttrsToPath:path forTab:tab];
-    
-    // retrieve mtime
-    NSDate *mtime = [[[NSFileManager defaultManager] attributesOfItemAtPath:
-        path error:nil] objectForKey:NSFileModificationDate];
-    
-    // callback
-    if (callback)
-      callback(nil, mtime);
-    
-    [pool drain];
-  };
-  
-  // write asynchronously or not
-  if (kconf_bool(@"KFileURLHandler/write/async", YES)) {
-    dispatch_async(dispatch_get_global_queue(0,0), performWrite);
-  } else {
-    performWrite();
-  }*/
 }
 
 
+-(void)getContentsOfDirectoryAtURL:(NSURL *)absoluteURL
+{
+	
+	CKHost *myHost = [[CKHost alloc] init];
+	[myHost setURL:absoluteURL];
+	CKSFTPConnection *conn = [[myHost connection] retain];
+	[conn setDelegate:self];
+	[conn connect];
+	[conn contentsOfDirectory:[absoluteURL path]];
+
+}
+
+- (void)connection:(CKConnectionClient*)connection didReceiveContents:(NSArray *)contents ofDirectory:(NSString *)dirPath error:(NSError *)error {
+	NSLog(@"Got Contents %@",contents);
+	[connection disconnect];
+}
 
 @end

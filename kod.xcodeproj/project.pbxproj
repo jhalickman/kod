@@ -160,6 +160,9 @@
 		3AF39DB212BE9C8A00FC534A /* KPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF39DB112BE9C8A00FC534A /* KPopUp.m */; };
 		3AF39DE212BEC15E00FC534A /* KPopUpContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF39DE112BEC15E00FC534A /* KPopUpContentView.m */; };
 		3AF3A0A512BF7F6400FC534A /* KAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3A0A412BF7F6400FC534A /* KAnimation.m */; };
+		AB33CF8A12CD405400D31AE2 /* KConnectionKitURLHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB33CF8912CD405400D31AE2 /* KConnectionKitURLHandler.mm */; };
+		AB33D0F412CD4AA900D31AE2 /* Connection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB33D0F312CD4AA900D31AE2 /* Connection.framework */; };
+		AB33D0F512CD4AAF00D31AE2 /* Connection.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AB33D0F312CD4AA900D31AE2 /* Connection.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +222,41 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CSS;
 		};
+		AB33D07812CD49DC00D31AE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 79CFD12609F702BE00172CDD;
+			remoteInfo = Framework;
+		};
+		AB33D07A12CD49DC00D31AE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 09D6601D09FD37990000BA00;
+			remoteInfo = UnitTest;
+		};
+		AB33D07C12CD49DC00D31AE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 795FF4F10B0C013200EA9292;
+			remoteInfo = DropletHelper;
+		};
+		AB33D07E12CD49DC00D31AE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7983E6D20B0C4DF000F5078E;
+			remoteInfo = DropletLauncher;
+		};
+		AB33D08012CD49F000D31AE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 79CFD12509F702BE00172CDD;
+			remoteInfo = Framework;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -239,6 +277,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				AB33D0F512CD4AAF00D31AE2 /* Connection.framework in Copy Frameworks */,
 				3AC6ECCE12C8E08000C8DBFC /* ChromiumTabs.framework in Copy Frameworks */,
 				3AAA9F7712BFC0440079F079 /* Sparkle.framework in Copy Frameworks */,
 				3AE5E9A3129180CB00B17C4F /* CSS.framework in Copy Frameworks */,
@@ -518,6 +557,10 @@
 		3AF39DE112BEC15E00FC534A /* KPopUpContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPopUpContentView.m; sourceTree = "<group>"; };
 		3AF3A0A312BF7F6400FC534A /* KAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAnimation.h; sourceTree = "<group>"; };
 		3AF3A0A412BF7F6400FC534A /* KAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAnimation.m; sourceTree = "<group>"; };
+		AB33CF8812CD405400D31AE2 /* KConnectionKitURLHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KConnectionKitURLHandler.h; sourceTree = "<group>"; };
+		AB33CF8912CD405400D31AE2 /* KConnectionKitURLHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KConnectionKitURLHandler.mm; sourceTree = "<group>"; };
+		AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Connection.xcodeproj; path = deps/ConnectionKit/Connection.xcodeproj; sourceTree = "<group>"; };
+		AB33D0F312CD4AA900D31AE2 /* Connection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Connection.framework; path = deps/ConnectionKit/build/Debug/Connection.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -545,6 +588,7 @@
 				3AA91F3612CA469100132A25 /* libdl.dylib in Frameworks */,
 				3AA91F3812CA469B00132A25 /* libz.dylib in Frameworks */,
 				3AA91F3C12CA46B200132A25 /* libssl.dylib in Frameworks */,
+				AB33D0F412CD4AA900D31AE2 /* Connection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +742,7 @@
 		3A928BED1227143800DA7E43 = {
 			isa = PBXGroup;
 			children = (
+				AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */,
 				3AE5E8A912915ABA00B17C4F /* CSS.xcodeproj */,
 				3A92916A1229BDAA00DA7E43 /* chromium-tabs.xcodeproj */,
 				3A928C13122714E800DA7E43 /* src */,
@@ -705,7 +750,6 @@
 				3AA91E5B12C95CC000132A25 /* xcconfig */,
 				3A92914F1229BD5E00DA7E43 /* Frameworks */,
 				3A928C211227151800DA7E43 /* Products */,
-				3AA91F3B12CA46B200132A25 /* libssl.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -778,6 +822,7 @@
 		3A92914F1229BD5E00DA7E43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB33D0F312CD4AA900D31AE2 /* Connection.framework */,
 				3AAA9F4112BFB7B50079F079 /* Sparkle.framework */,
 				3A25E47A1281A6A200B6A33E /* libboost_regex-mt.dylib */,
 				3A25E47C1281A6A700B6A33E /* libsource-highlight.dylib */,
@@ -789,6 +834,7 @@
 				3AA81B2E12C62E160085F086 /* QuartzCore.framework */,
 				3AA91F3312CA467E00132A25 /* libcrypto.dylib */,
 				3AA91F3512CA469100132A25 /* libdl.dylib */,
+				3AA91F3B12CA46B200132A25 /* libssl.dylib */,
 				3AA91F3712CA469B00132A25 /* libz.dylib */,
 			);
 			name = Frameworks;
@@ -797,6 +843,8 @@
 		3AA8133812C36B390085F086 /* URL handlers */ = {
 			isa = PBXGroup;
 			children = (
+				AB33CF8812CD405400D31AE2 /* KConnectionKitURLHandler.h */,
+				AB33CF8912CD405400D31AE2 /* KConnectionKitURLHandler.mm */,
 				3AA8135312C36EE70085F086 /* KURLHandler.h */,
 				3AA8135412C36EE70085F086 /* KURLHandler.mm */,
 				3AA8135612C37DC90085F086 /* KFileURLHandler.h */,
@@ -1040,6 +1088,17 @@
 			name = "Pop-ups";
 			sourceTree = "<group>";
 		};
+		AB33D06C12CD49DC00D31AE2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB33D07912CD49DC00D31AE2 /* Connection.framework */,
+				AB33D07B12CD49DC00D31AE2 /* UnitTest.octest */,
+				AB33D07D12CD49DC00D31AE2 /* DropletHelper.app */,
+				AB33D07F12CD49DC00D31AE2 /* DropletLauncher */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1078,6 +1137,7 @@
 				3AE5E8B712915AC600B17C4F /* PBXTargetDependency */,
 				3A510B3212C26C3E00AAC1D5 /* PBXTargetDependency */,
 				3AC6ECD612C8E09A00C8DBFC /* PBXTargetDependency */,
+				AB33D08112CD49F000D31AE2 /* PBXTargetDependency */,
 			);
 			name = Kod;
 			productName = Kod;
@@ -1106,6 +1166,10 @@
 				{
 					ProductGroup = 3AC6ECBF12C8E05B00C8DBFC /* Products */;
 					ProjectRef = 3A92916A1229BDAA00DA7E43 /* chromium-tabs.xcodeproj */;
+				},
+				{
+					ProductGroup = AB33D06C12CD49DC00D31AE2 /* Products */;
+					ProjectRef = AB33D06B12CD49DC00D31AE2 /* Connection.xcodeproj */;
 				},
 				{
 					ProductGroup = 3AE5E8AA12915ABA00B17C4F /* Products */;
@@ -1148,6 +1212,34 @@
 			fileType = wrapper.application;
 			path = "CSS Example.app";
 			remoteRef = 3AE5E8B412915ABA00B17C4F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AB33D07912CD49DC00D31AE2 /* Connection.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Connection.framework;
+			remoteRef = AB33D07812CD49DC00D31AE2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AB33D07B12CD49DC00D31AE2 /* UnitTest.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTest.octest;
+			remoteRef = AB33D07A12CD49DC00D31AE2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AB33D07D12CD49DC00D31AE2 /* DropletHelper.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DropletHelper.app;
+			remoteRef = AB33D07C12CD49DC00D31AE2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AB33D07F12CD49DC00D31AE2 /* DropletLauncher */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = DropletLauncher;
+			remoteRef = AB33D07E12CD49DC00D31AE2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1338,6 +1430,7 @@
 				3AB5823612CAD15300E528B1 /* k_objc_prop.m in Sources */,
 				3A366A8412CB873D00257AE6 /* KObjectProxy.mm in Sources */,
 				3A366A8512CB873D00257AE6 /* node_kod.mm in Sources */,
+				AB33CF8A12CD405400D31AE2 /* KConnectionKitURLHandler.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,6 +1456,11 @@
 			isa = PBXTargetDependency;
 			name = CSS;
 			targetProxy = 3AE5E8B612915AC600B17C4F /* PBXContainerItemProxy */;
+		};
+		AB33D08112CD49F000D31AE2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Framework;
+			targetProxy = AB33D08012CD49F000D31AE2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1443,6 +1541,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3AA91E5D12C95CC000132A25 /* debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ConnectionKit/build/Debug\"",
+					"\"$(SRCROOT)/deps/ConnectionKit/build/Debug\"",
+				);
 			};
 			name = Debug;
 		};
@@ -1450,6 +1553,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3AA91E5E12C95CC000132A25 /* release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ConnectionKit/build/Debug\"",
+					"\"$(SRCROOT)/deps/ConnectionKit/build/Debug\"",
+				);
 			};
 			name = Release;
 		};

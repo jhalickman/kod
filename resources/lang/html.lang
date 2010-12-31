@@ -1,6 +1,6 @@
 # @name HTML
-# @matchext html, htm, shtml, xhtml, phtml, php, inc, tmpl, tpl, ctp
-# @matchfirstline <!DOCTYPE|<(?i:html)|<\?(?i:php)
+# @matchext html, htm, shtml, xhtml, phtml, inc, tmpl, tpl, ctp
+# @matchfirstline <!DOCTYPE|<(?i:html)
 	
 # deal with embedded CSS
 state keyword = "<style" nonsensitive begin
