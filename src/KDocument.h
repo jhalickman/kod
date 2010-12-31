@@ -18,26 +18,26 @@ typedef std::deque<KHighlightQueueEntry> KHighlightQueue;
   __weak NSUndoManager *undoManager_; // Owned by textView_
   BOOL isDirty_;
   NSStringEncoding textEncoding_;
-  
+
   KSourceHighlighterPtr sourceHighlighter_;
   BOOL highlightingEnabled_;
   HSemaphore highlightSem_;
-  
+
   // Current language
   NSString const *langId_;
-  
+
   // Mapped line breaks. Provides number of lines and a mapping from line number
   // to actual character offset. The location of each range denotes the start
   // of a linebreak and the length denotes how many characters are included in
   // that linebreak (normally 1 or 2: LF, CR or CRLF).
   std::vector<NSRange> lineToRangeVec_;
-  
+
   // Meta ruler (nil if not shown)
   __weak KMetaRulerView *metaRulerView_;
-  
+
   // Timestamp of last edit
   NSTimeInterval lastEditTimestamp_;
-  
+
   // Internal state
   hatomic_flags_t stateFlags_;
   NSRange lastEditedHighlightStateRange_;
@@ -98,8 +98,20 @@ typedef std::deque<KHighlightQueueEntry> KHighlightQueue;
 // Range of line terminator for |lineNumber|
 - (NSRange)rangeOfLineTerminatorAtLineNumber:(NSUInteger)lineNumber;
 
+// Range of line indentation for |lineNumber|
+- (NSRange)rangeOfLineIndentationAtLineNumber:(NSUInteger)lineNumber;
+
 // Range of line at |lineNumber| including line terminator (first line is 1)
 - (NSRange)rangeOfLineAtLineNumber:(NSUInteger)lineNumber;
+
+/*!
+ * Returns the range of characters representing the line or lines containing the
+ * current selection.
+ */
+- (NSRange)lineRangeForCurrentSelection;
+
+- (BOOL)isNewLine:(NSUInteger)lineNumber;
+
 
 
 // These are called by readFromURL:ofType:error:

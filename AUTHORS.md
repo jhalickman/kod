@@ -4,3 +4,5 @@
 - Matt Martz <matt@sivel.net>
 - Kushal Pisavadia <kushi.p@gmail.com>
 - August Joki <august.joki@gmail.com>
+- Swizec Teller <swizec@swizec.com>
+- Cody Krieger <cody@codykrieger.com>
