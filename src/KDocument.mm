@@ -42,6 +42,10 @@ static const uint8_t kEditChangeStatusUnknown = 0;
 static const uint8_t kEditChangeStatusUserUnalteredText = 1;
 static const uint8_t kEditChangeStatusUserAlteredText = 2;
 
+// notifications
+NSString *const KDocumentDidLoadDataNotification =
+              @"KDocumentDidLoadDataNotification";
+
 
 static NSString *_NSStringFromRangeArray(std::vector<NSRange> &lineToRangeVec,
                                          NSString *string) {
@@ -64,8 +68,6 @@ static NSString *_NSStringFromRangeArray(std::vector<NSRange> &lineToRangeVec,
 @end
 
 @implementation KDocument
-
-@dynamic fileURL; // impl by NSDocument
 
 @synthesize textEncoding = textEncoding_,
             textView = textView_;
@@ -169,6 +171,7 @@ static int debugSimulateTextAppendingIteration = 0;
   [paragraphStyle setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
   [paragraphStyle setLineBreakMode:NSLineBreakByCharWrapping];
   [textView_ setDefaultParagraphStyle:paragraphStyle];
+  [paragraphStyle release];
 
   // TODO: this defines the attributes to apply to "marked" text, input which is
   // pending, like "¨" waiting for "u" to build the character "ü". Should match
@@ -237,15 +240,50 @@ static int debugSimulateTextAppendingIteration = 0;
 
 
 - (void)dealloc {
-  KStyle *style = [KStyle sharedStyle];
-  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-  [nc removeObserver:self
-                name:KStyleDidChangeNotification
-              object:style];
+  //DLOG("--- DEALLOC %@ ---", self);
+  [self stopObserving];
+  if (metaRulerView_) {
+    // Okay, so this is the deal: We own the ruler, so the ruler shouldn't
+    // retain us. But, the ruler might be retained by our owning KScrollView,
+    // which could case access to us after we are dead. This little thing clear
+    // our weak ref in the ruler:
+    metaRulerView_.tabContents = nil;
+  }
   if (sourceHighlighter_.get())
     sourceHighlighter_->cancel();
   [super dealloc];
 }
+
+/*- (id)retain {
+  DLOG("\n%@ retain (%lu) %@\n", self, [self retainCount],
+       //@""//
+       [NSThread callStackSymbols]
+       );
+   fflush(stderr); fsync(STDERR_FILENO);
+  usleep(5000);
+  return [super retain];
+}
+- (void)release {
+  //DLOG("%@ release %@", self, [NSThread callStackSymbols]);
+  DLOG("\n%@ release (%lu) %@\n", self, [self retainCount],
+       //@""//
+       [NSThread callStackSymbols]
+       );
+  fflush(stderr); fsync(STDERR_FILENO);
+  usleep(5000);
+  [super release];
+}
+- (id)autorelease {
+  DLOG("\n%@ autorelease %@\n", self,
+       //@""//
+       [NSThread callStackSymbols]
+       );
+  fflush(stderr); fsync(STDERR_FILENO);
+  return [super autorelease];
+}
+- (void)destroy:(CTTabStripModel*)sender {
+  sender->TabContentsWasDestroyed(self);
+}*/
 
 
 #pragma mark -
@@ -373,6 +411,15 @@ static int debugSimulateTextAppendingIteration = 0;
       self.title = _kDefaultTitle;
     }
   }
+}
+
+
+- (NSURL*)url {
+  return [self fileURL];
+}
+
+- (void)setUrl:(NSURL *)url {
+  [self setFileURL:url];
 }
 
 
@@ -520,6 +567,15 @@ static int debugSimulateTextAppendingIteration = 0;
 }
 
 
+- (BOOL)isEditable {
+  return [textView_ isEditable];
+}
+
+- (void)setIsEditable:(BOOL)editable {
+  [textView_ setEditable:editable];
+}
+
+
 #pragma mark -
 #pragma mark Notifications
 
@@ -546,6 +602,11 @@ static int debugSimulateTextAppendingIteration = 0;
 
 
 - (void)tabWillCloseInBrowser:(CTBrowser*)browser atIndex:(NSInteger)index {
+  NSNumber *ident = [NSNumber numberWithUnsignedInteger:self.identifier];
+  KNodeEmitEvent("closeDocument", self, ident, nil);
+  // TODO(rsms): emit "close" event in nodejs on our v8 wrapper object instead
+  // of the kod module.
+
   [super tabWillCloseInBrowser:browser atIndex:index];
 
   // cancel and disable highlighting
@@ -575,7 +636,7 @@ static int debugSimulateTextAppendingIteration = 0;
     self.clipView.allowsScrolling = YES;
   });
 
-  KNodeEmitEvent("tabDidBecomeSelected", self, nil);
+  KNodeEmitEvent("activateDocument", self, nil);
 }
 
 
@@ -624,6 +685,19 @@ static int debugSimulateTextAppendingIteration = 0;
     [metaRulerView_ linesDidChangeWithLineCountDelta:lineCountDelta];
   }
 }
+
+
+#pragma mark -
+#pragma mark Node.js
+
+
+// wrappers for KDocuments should be persistent
+- (BOOL)nodeWrapperIsPersistent {
+  return YES;
+}
+
+//- (v8::Local<v8::Value>)v8Value { return *v8::Undefined(); }
+
 
 #pragma mark -
 #pragma mark Line info
@@ -1782,6 +1856,9 @@ finishedReadingURL:(NSURL*)url
       self.isLoading = NO;
       self.isWaitingForResponse = NO;
       self.fileType = typeName;
+      [self post:KDocumentDidLoadDataNotification];
+      [self emitEvent:@"load" argument:nil];
+      // TODO(rsms): emit event in nodejs on our v8 wrapper object
 
       // guess language if no language has been set
       if (!langId_) {
@@ -1866,9 +1943,9 @@ finishedReadingURL:(NSURL*)url
     return NO;
 
   // freeze tab during writing
-  BOOL tabWasEditable = [self.textView isEditable];
+  BOOL tabWasEditable = self.isEditable;
   if (tabWasEditable)
-    [self.textView setEditable:NO];
+    self.isEditable = NO;
   self.isLoading = YES;
 
   // delegate writing to the handler
@@ -1914,7 +1991,7 @@ finishedReadingURL:(NSURL*)url
 
     // unfreeze tab
     if (tabWasEditable)
-      [self.textView setEditable:YES];
+      self.isEditable = YES;
     self.isLoading = NO;
 
     K_DISPATCH_MAIN_ASYNC({

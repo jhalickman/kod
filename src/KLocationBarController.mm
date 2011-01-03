@@ -24,7 +24,7 @@
 
 
 - (void)dealloc {
-  [currentContents_ release];
+  h_casid(&currentContents_, nil);
   [originalAttributedStringValue_ release];
   [super dealloc];
 }
@@ -33,16 +33,15 @@
 
 - (void)recordStateWithContents:(CTTabContents*)contents {
   // Record state so we can restore it later
-  h_objc_xch(&currentContents_, contents);
-  h_objc_xch(&originalAttributedStringValue_,
-             [[textField_ cell] attributedStringValue]);
+  h_casid(&originalAttributedStringValue_,
+          [[textField_ cell] attributedStringValue]);
 }
 
 
 - (void)restoreState {
   if (originalAttributedStringValue_) {
     [[textField_ cell] setAttributedStringValue:originalAttributedStringValue_];
-    h_objc_xch(&originalAttributedStringValue_, nil);
+    h_casid(&originalAttributedStringValue_, nil);
   }
 }
 
@@ -130,6 +129,7 @@
 
 
 - (void)contentsDidChange:(CTTabContents*)contents {
+  h_casid(&currentContents_, contents);
   [self recordStateWithContents:contents];
 }
 
