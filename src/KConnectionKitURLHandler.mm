@@ -1,5 +1,6 @@
 
 #import "KConnectionKitURLHandler.h"
+#import "KFileTreeNodeData.h"
 
 #import <Connection/Connection.h>
 
@@ -40,6 +41,11 @@
 /*- (void)connection:(id <CKConnection>)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
 	
 	NSLog(@"Got auth Challange %@",challenge);
+	NSWindowController *pController = [[NSWindowController alloc] 
+									   initWithWindowNibName:@"AuthenticationDialog"];
+	NSWindow *window = [pController window];
+	[NSApp runModalForWindow:window];
+	NSLog(@"After show window");
 	[[challenge sender] useCredential:[NSURLCredential credentialWithUser:@"" password:@"" persistence:NSURLCredentialPersistenceNone] forAuthenticationChallenge:challenge];
 }*/
 
@@ -137,8 +143,16 @@
 	CKTransferRecord *record = [conn uploadFromData:data toFile:[absoluteURL path] checkRemoteExistence:YES delegate:self];
 }
 
+- (BOOL)canBrowseURL:(NSURL*)url {
+	return [[url scheme] caseInsensitiveCompare:@"sftp"] == NSOrderedSame || [[url scheme] caseInsensitiveCompare:@"ftp"] == NSOrderedSame;
+}
 
--(void)getContentsOfDirectoryAtURL:(NSURL *)absoluteURL
+- (BOOL)isDirectoryURL:(NSURL*)url {
+	return ![[url path] containsSubstring:@"."];
+}
+
+-(void)loadContentsOfURL:(NSURL *)absoluteURL 
+				  inTree:(KFileTreeController *) tree
 {
 	
 	CKHost *myHost = [[CKHost alloc] init];
@@ -147,11 +161,49 @@
 	[conn setDelegate:self];
 	[conn connect];
 	[conn contentsOfDirectory:[absoluteURL path]];
-
+	myURL = [absoluteURL retain];
+	myTree = [tree retain];
 }
 
-- (void)connection:(CKConnectionClient*)connection didReceiveContents:(NSArray *)contents ofDirectory:(NSString *)dirPath error:(NSError *)error {
-	NSLog(@"Got Contents %@",contents);
+- (void)connection:(CKConnectionClient*)connection 
+didReceiveContents:(NSArray *)contents 
+	   ofDirectory:(NSString *)dirPath 
+			 error:(NSError *)error {
+	
+	if (!contents || [contents count] == 0) return ;
+	
+	KFileTreeNodeData *nodeData =
+	[KFileTreeNodeData fileTreeNodeDataWithPath:dirPath];
+	nodeData.container = YES;
+	NSTreeNode *root = [NSTreeNode treeNodeWithRepresentedObject:nodeData];
+	NSMutableArray *childNodes = [root mutableChildNodes];
+	
+	for (CKDirectoryListingItem *item in contents) {
+		NSTreeNode *node;
+		NSString *path = [NSString stringWithFormat:@"%@/%@",[myURL absoluteString], [item filename]];//[NSString pathWithComponents:[NSArray arrayWithObjects:[myURL absoluteString], [item filename], nil]];
+		if ([item isDirectory]) {
+			//node = [self treeNodeFromDirectoryAtPath:path error:error];
+			nodeData = [KFileTreeNodeData fileTreeNodeDataWithPath:path];
+			node = [NSTreeNode treeNodeWithRepresentedObject:nodeData];
+			nodeData.container = YES;
+			// don't abort on error, but let |error| be assigned and continue with
+			// next entry.
+			//if (node) {
+			//	nodeData = [node representedObject];
+			//}
+		} else {
+			nodeData = [KFileTreeNodeData fileTreeNodeDataWithPath:path];
+			node = [NSTreeNode treeNodeWithRepresentedObject:nodeData];
+			nodeData.container = NO;
+		}
+		if (node && nodeData) {
+			//nodeData.image = [meta objectForKey:NSURLEffectiveIconKey];
+			[childNodes addObject:node];
+		}
+	}
+	[myTree setRootTreeNode:root];
+	[myTree release];
+	[myURL release];
 	[connection disconnect];
 }
 

@@ -131,13 +131,15 @@
 
     KDocument *alreadyOpenTab = [self _documentForURL:url
                                           makeKeyIfFound:index==0];
+	
+	KURLHandler *handler = [self urlHandlerForURL:url];
     if (alreadyOpenTab) {
       // done?
       if (callback && OSAtomicDecrement32(&callbackCountdown) == 0) {
         callback();
         [callback release];
       }
-    } else if ([url isFileURL] && [fm fileExistsAtPath:[url path] isDirectory:&directory] && directory) {
+    } else if ([handler isDirectoryURL:url] && [handler canBrowseURL:url]) {
       NSError *error = nil;
       if (![windowController openFileDirectoryAtURL:url error:&error]) {
         WLOG("failed to read directory %@ -- %@", url, error);

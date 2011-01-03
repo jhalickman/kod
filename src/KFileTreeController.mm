@@ -53,6 +53,7 @@ static NSString *kNameColumnId = @"name";
         [autosaveName stringByAppendingString:[nodeData.url absoluteString]];
   }
   [outlineView_ setAutosaveName:autosaveName];
+  [outlineView_ reloadData];
 }
 
 
@@ -231,9 +232,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
   KFileTreeNodeData *nodeData = [item representedObject];
   // Make sure the image and text cell has an image.
   // If not, lazily fill in a random image
-  if (nodeData.image == nil) {
+  /*if (nodeData.image == nil) {
     nodeData.image =
         [[NSWorkspace sharedWorkspace] iconForFile:nodeData.name];
+  }*/
+  if (nodeData.image == nil) {
+	  if (!nodeData.container) {	  
+		  nodeData.image =
+		  [[NSWorkspace sharedWorkspace] iconForFileType:[nodeData.name pathExtension]];
+	  } else {
+		  nodeData.image =
+		  [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
+	  }
   }
   // We know that the cell at this column is our image and text cell, so grab it
   KFileTextFieldCell *fileTextFieldCell = (KFileTextFieldCell *)cell;

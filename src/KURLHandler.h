@@ -1,5 +1,5 @@
 #import "KDocument.h"
-
+#import "KFileTreeController.h"
 /*!
  * Lives in the shared KDocumentController instance's urlHandlers_ dict,
  * where URI schemes are mapped to KURLHandler objects.
@@ -11,6 +11,7 @@
 
 - (BOOL)canReadURL:(NSURL*)url;
 - (BOOL)canWriteURL:(NSURL*)url;
+- (BOOL)canBrowseURL:(NSURL*)url;
 
 - (void)readURL:(NSURL*)absoluteURL
          ofType:(NSString*)typeName
@@ -24,4 +25,7 @@
       originalURL:(NSURL*)absoluteOriginalContentsURL
          callback:(void(^)(NSError *err, NSDate *mtime))callback;
 
+- (BOOL)isDirectoryURL:(NSURL*)url;
+- (void)loadContentsOfURL:(NSURL *)absoluteURL 
+				   inTree:(KFileTreeController *) tree;
 @end

@@ -7,6 +7,7 @@
 #import "KAppDelegate.h"
 #import "KBrowser.h"
 #import "KDocument.h"
+#import "KDocumentController.h"
 #import "KFileTreeController.h"
 #import "KFileOutlineView.h"
 #import "KScroller.h"
@@ -414,11 +415,15 @@ willPositionSheet:(NSWindow *)sheet
   NSURL *absoluteURL = ((KToolbarController *)toolbarController_).directoryURL;
   NSString *path = [absoluteURL path];
   NSError *error = nil;
-  BOOL success = [fileTreeController_ setRootTreeNodeFromDirectoryAtPath:path error:&error];
+  KDocumentController *documentController = (KDocumentController*)[NSDocumentController sharedDocumentController];
+  KURLHandler *handler = [documentController urlHandlerForURL:absoluteURL];
+  [handler loadContentsOfURL:absoluteURL inTree:fileTreeController_];
+	
+  /*BOOL success = [fileTreeController_ setRootTreeNodeFromDirectoryAtPath:path error:&error];
   if (success) {
     // make sure the sidebar is visible
     splitView_.isCollapsed = NO;
-  }
+  }*/
 }
 
 @end

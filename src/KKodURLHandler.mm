@@ -5,7 +5,7 @@
 #import "kconf.h"
 #import "kod_version.h"
 #import "KDocumentController.h"
-
+#import "KFileTreeNodeData.h"
 
 @interface NSURL (kod_uri)
 - (NSString*)kodURICommand;
@@ -84,5 +84,83 @@
   }];
 }
 
+- (BOOL)canBrowseURL:(NSURL*)url {
+	return [url isFileURL];
+}
 
+- (BOOL)isDirectoryURL:(NSURL*)url {
+	NSFileManager *fm = [NSFileManager defaultManager];
+	BOOL directory = NO;
+	return [url isFileURL] && [fm fileExistsAtPath:[url path] isDirectory:&directory] && directory;
+}
+
+-(void)loadContentsOfURL:(NSURL *)absoluteURL 
+				  inTree:(KFileTreeController *) tree
+{
+	NSTreeNode *root = [self treeNodeFromDirectoryAtPath:[absoluteURL path] error:nil];
+	[tree setRootTreeNode:root];
+}
+
+- (NSTreeNode*)treeNodeFromDirectoryAtPath:(NSString*)path
+                                     error:(NSError**)error {
+	NSFileManager *fm = [NSFileManager defaultManager];
+	BOOL isDir = NO;
+	if (![fm fileExistsAtPath:path isDirectory:&isDir] || !isDir) {
+		NSString *msg = [NSString stringWithFormat:@"Not a directory: %@", path];
+		*error = [NSError errorWithDomain:NSStringFromClass([isa class])
+									 code:0
+								 userInfo:[NSDictionary dictionaryWithObject:msg
+																	  forKey:NSLocalizedDescriptionKey]];
+		return nil;
+	}
+	
+	static NSArray *metaKeys = nil;
+	if (!metaKeys) {
+		metaKeys = [[NSArray alloc] initWithObjects:
+					//NSURLIsRegularFileKey,
+					NSURLIsDirectoryKey,
+					NSURLIsSymbolicLinkKey,
+					//NSURLContentModificationDateKey, NSURLTypeIdentifierKey,
+					//NSURLLabelNumberKey, NSURLLabelColorKey,
+					NSURLEffectiveIconKey,
+					nil];
+	}
+	
+	NSURL *dirurl = [NSURL fileURLWithPath:path isDirectory:YES];
+	NSArray *urls = [fm contentsOfDirectoryAtURL:dirurl
+					  includingPropertiesForKeys:metaKeys
+										 options:NSDirectoryEnumerationSkipsHiddenFiles
+										   error:error];
+	if (!urls) return nil;
+	
+	KFileTreeNodeData *nodeData =
+	[KFileTreeNodeData fileTreeNodeDataWithPath:[[NSURL fileURLWithPath:path] absoluteString]];
+	nodeData.container = YES;
+	NSTreeNode *root = [NSTreeNode treeNodeWithRepresentedObject:nodeData];
+	NSMutableArray *childNodes = [root mutableChildNodes];
+	
+	for (NSURL *url in urls) {
+		NSDictionary *meta = [url resourceValuesForKeys:metaKeys error:nil];
+		if (!meta) continue;
+		NSTreeNode *node;
+		if ([[meta objectForKey:NSURLIsDirectoryKey] boolValue]) {
+			node = [self treeNodeFromDirectoryAtPath:url.path error:error];
+			// don't abort on error, but let |error| be assigned and continue with
+			// next entry.
+			if (node) {
+				nodeData = [node representedObject];
+			}
+		} else {
+			nodeData = [KFileTreeNodeData fileTreeNodeDataWithPath:[url absoluteString]];
+			node = [NSTreeNode treeNodeWithRepresentedObject:nodeData];
+			nodeData.container = NO;
+		}
+		if (node && nodeData) {
+			nodeData.image = [meta objectForKey:NSURLEffectiveIconKey];
+			[childNodes addObject:node];
+		}
+	}
+	
+	return root;
+}
 @end

@@ -20,7 +20,7 @@
 
 - (id)initWithPath:(NSString *)path {
   self = [self init];
-  self.url = [NSURL fileURLWithPath:path];
+  self.url = [NSURL URLWithString:path];
   self.name = [path lastPathComponent];
   return self;
 }
