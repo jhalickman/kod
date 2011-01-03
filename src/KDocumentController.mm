@@ -6,12 +6,9 @@
 #import "KFileURLHandler.h"
 #import "KHTTPURLHandler.h"
 #import "KKodURLHandler.h"
-<<<<<<< HEAD
 #import "KConnectionKitURLHandler.h"
-=======
 #import "HEventEmitter.h"
 #import "kod_node_interface.h"
->>>>>>> upstream/master
 
 #import <objc/objc-runtime.h>
 
@@ -154,26 +151,13 @@
     BOOL directory = NO;
 
     KDocument *alreadyOpenTab = [self _documentForURL:url
-<<<<<<< HEAD
                                           makeKeyIfFound:index==0];
 	
 	KURLHandler *handler = [self urlHandlerForURL:url];
     if (alreadyOpenTab) {
-      // done?
-      if (callback && OSAtomicDecrement32(&callbackCountdown) == 0) {
-        callback();
-        [callback release];
-      }
+		if (countdown) countdown(nil);
+
     } else if ([handler isDirectoryURL:url] && [handler canBrowseURL:url]) {
-=======
-                                       makeKeyIfFound:index==0];
-    if (alreadyOpenTab) {
-      if (countdown) countdown(nil);
-    } else if ([url isFileURL] &&
-               [fm fileExistsAtPath:[url path] isDirectory:&directory] &&
-               directory) {
-      // Special case: open a directory
->>>>>>> upstream/master
       NSError *error = nil;
       BOOL ok = [windowController openFileDirectoryAtURL:url error:&error];
       if (countdown) countdown(error);
